@@ -65,13 +65,20 @@ public class LinkedPositionalList<E> implements PositionalList<E> {
 	private DNode<E> validate(Position<E> p) throws IllegalArgumentException { 
 		try { 
 			DNode<E> dp = (DNode<E>) p; 
+			Iterable<Position<E>> mx=positions();
+		
 			if (dp.getPrev() == null || dp.getNext() == null) 
 				throw new IllegalArgumentException("Invalid internal node."); 
 			
-			return dp; 
+			for(Object m:mx) {
+			if(p == m) {
+				return dp; 
+			}
+			}
 		} catch (ClassCastException e) { 
 			throw new IllegalArgumentException("Invalid position type."); 
 		}
+		return header;
 	}
 	
 	private Position<E> position(DNode<E> dn) { 
